@@ -13,13 +13,12 @@ var app = app || {};
 
 	// KRISTY'S START CODE 
 	app.SEARCH_TODOS = 'searching';
-	app.PREVIOUS_SEARCH_TODOS = "previous_search"
+	app.PREVIOUS_SEARCH_TODOS = "previous_search";
 	// KRISTY'S END CODE
 
 	var TodoFooter = app.TodoFooter;
 	var TodoItem = app.TodoItem;
 	var ENTER_KEY = 13;
-	var BACK_KEY = 8; // KRISTY'S CODE
 
 	var TodoApp = React.createClass({
 		getInitialState: function () {
@@ -59,7 +58,7 @@ var app = app || {};
 			})
 		},
 		handleSearchKeyDown: function(event) {
-			// Continue showing the previous search results when backspacking on search bar when we are at the URL '/#search'
+			// Continue showing the previous search results when input value is changing on search bar when we are at the URL '/#search'
 			if (window.location.href == 'http://localhost:8000/#/search') {
 				this.setState({
 					nowShowing: app.PREVIOUS_SEARCH_TODOS
@@ -67,10 +66,6 @@ var app = app || {};
 			}
 		},
 		handleSubmit: function () {
-			// Only show search results if user typed something in the search bar
-			// if(this.state.searchTodo.length > 0) {
-			// 	this.setState({nowShowing: app.SEARCH_TODOS})
-			// } 
 			this.setState({
 				previousSearch: this.state.searchTodo
 			})
