@@ -13,7 +13,8 @@ To ensure the search results remain the same when search `input` value changes u
 - When the `input` search value changes, rendering is not affected. This is because when the `input` search value changes, the `input`'s search bar `onKeyDown` event happens. During the `onKeyDown` event, `handleSearchKeyDown` function sets the `nowShowing` state to `app.PREVIOUS_SEARCH_TODOS`. When `nowShowing` state is `app.PREVIOUS_SEARCH_TODOS` the `previouSearch` state is used in the `includes` function inside the switch statement. Since the `previousSearch` state was equal to `searchTodo` state, rendering shows the same results from the first time Submit is clicked even though the current `searchTodo` state changes when `input` value changes.
 
 To change the URL to `"#/search"` when searching:
-
+- When Submit is clicked, `a` tag's `href` attribute is equal to `"#/search"`.
+- When URL path is `"#/search"`, `nowShowing` state is set to `app.SEARCH_TODOS` in the `Router()`.
 
 # Installation
 Run `npm i`.
@@ -21,7 +22,8 @@ Run `npm i`.
 # Run App Locally
 To run the app locally, run `python -m SimpleHTTPServer`.
 
+# Improvements
+- When page with URL path `"#/search"` is refreshed, the URL should be redirected to homepage `"#/"`.
+- When search is submitted, append the search value to the URL path. 
+- When page with URL path `"#/search/search_value"` is refreshed, the search results are re-rendered.
 
-
-Issues:
-Refreshing #/search should redirect to home 

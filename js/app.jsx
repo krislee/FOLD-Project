@@ -200,7 +200,7 @@ var app = app || {};
 							<li style={{'list-style-type': 'none'}}>
 								{this.state.searchTodo.length > 0 ?
 								<a
-									href= {`#/search/${this.state.searchTodo}`}
+									href= '#/search'
 									onClick={this.handleSubmit} 
 									style={{
 										backgroundColor: '#b83f45',
