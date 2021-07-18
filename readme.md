@@ -126,7 +126,7 @@ var TodoApp = React.createClass({
 +                           </div>
 +                           }
 +                       </li> 
-+				</div>
++               </div>
             </div>
         )
     }
