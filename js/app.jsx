@@ -10,19 +10,28 @@ var app = app || {};
 	app.ALL_TODOS = 'all';
 	app.ACTIVE_TODOS = 'active';
 	app.COMPLETED_TODOS = 'completed';
+
+	// KRISTY'S START CODE 
 	app.SEARCH_TODOS = 'searching';
 	app.PREVIOUS_SEARCH_TODOS = "previous_search"
+	// KRISTY'S END CODE
+
 	var TodoFooter = app.TodoFooter;
 	var TodoItem = app.TodoItem;
 	var ENTER_KEY = 13;
+	var BACK_KEY = 8; // KRISTY'S CODE
+
 	var TodoApp = React.createClass({
 		getInitialState: function () {
 			return {
 				nowShowing: app.ALL_TODOS,
 				editing: null,
 				newTodo: '',
+
+				// KRISTY'S START CODE BLOCK
 				searchTodo: '',
 				previousSearch: ''
+				// KRISTY'S END CODE BLOCK
 			};
 		},
 		componentDidMount: function () {
@@ -31,33 +40,43 @@ var app = app || {};
 				'/': setState.bind(this, {nowShowing: app.ALL_TODOS}),
 				'/active': setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
 				'/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS}),
-				'/search': setState.bind(this, {nowShowing: app.SEARCH_TODOS})
+
+				// KRISTY'S START CODE 
+				'/search': setState.bind(this, {nowShowing: app.SEARCH_TODOS}) 
+				// KRISTY'S END CODE
 			});
 			router.init('/');
 		},
 		handleChange: function (event) {
 			this.setState({newTodo: event.target.value});
 		},
+
+		// KRISTY'S START CODE BLOCK
+		// Input search bar onchange function
 		handleSearchChange: function(event) {
 			this.setState({
 				searchTodo: event.target.value
 			})
 		},
 		handleSearchKeyDown: function(event) {
-			if (event.which == 8 && window.location.href == 'http://localhost:8000/#/search') {
+			// Continue showing the previous search results when backspacking on search bar when we are at the URL '/#search'
+			if (window.location.href == 'http://localhost:8000/#/search') {
 				this.setState({
 					nowShowing: app.PREVIOUS_SEARCH_TODOS
 				})
 			}
 		},
 		handleSubmit: function () {
-			if(this.state.searchTodo.length > 0) {
-				this.setState({nowShowing: app.SEARCH_TODOS})
-			} 
+			// Only show search results if user typed something in the search bar
+			// if(this.state.searchTodo.length > 0) {
+			// 	this.setState({nowShowing: app.SEARCH_TODOS})
+			// } 
 			this.setState({
 				previousSearch: this.state.searchTodo
 			})
 		},
+		// KRISTY'S END CODE BLOCK
+
 		handleNewTodoKeyDown: function (event) {
 			if (event.keyCode !== ENTER_KEY) {
 				return;
@@ -102,10 +121,14 @@ var app = app || {};
 					return !todo.completed;
 				case app.COMPLETED_TODOS:
 					return todo.completed;
+				
+				// KRISTY'S START CODE BLOCK
 				case app.PREVIOUS_SEARCH_TODOS:
 					return todo.title.includes(this.state.previousSearch);
 				case app.SEARCH_TODOS:
 					return todo.title.includes(this.state.searchTodo);
+				// KRISTY'S END CODE BLOCK
+
 				default:
 					return true;
 				}
@@ -158,25 +181,40 @@ var app = app || {};
 			}
 			return (
 				<div>
-					<div style={{display: 'flex'}}>
-					<input className="searchbar" placeholder="Search" type="text" 
-					style={{width: '100%',
-							'borderRadius': '0px',
-							'border': 'none',
-							'boxShadow': 'inset 0 -2px 1px rgb(0 0 0 / 3%)',
-							'fontSize': '24px',
-							'position': 'relative',
-							'margin-left': '56.5px'}}
-					onChange={this.handleSearchChange} 
-					value={this.state.searchTodo} 
-					onKeyDown={this.handleSearchKeyDown}
-					/>
-						<li style={{'list-style-type': 'none'}}>
-							{this.state.searchTodo.length > 0 ?
-							<a
-								href= "#/search"
-								onClick={this.handleSubmit} 
-								style={{
+
+					{/* KRISTY'S START CODE BLOCK*/}
+					<div style={{display: 'flex'}}> 
+						<input className="searchbar" placeholder="Search" type="text" 
+						style={{width: '100%',
+								'borderRadius': '0px',
+								'border': 'none',
+								'boxShadow': 'inset 0 -2px 1px rgb(0 0 0 / 3%)',
+								'fontSize': '24px',
+								'position': 'relative',
+								'margin-left': '56.5px'}}
+						onChange={this.handleSearchChange} 
+						value={this.state.searchTodo} 
+						onKeyDown={this.handleSearchKeyDown}
+						/>
+							{/* Allow for active link if there is something on a search bar, else unclickable div */}
+							<li style={{'list-style-type': 'none'}}>
+								{this.state.searchTodo.length > 0 ?
+								<a
+									href= "#/search"
+									onClick={this.handleSubmit} 
+									style={{
+										backgroundColor: '#b83f45',
+										color: '#fff', 
+										height: '50px', 
+										width: '75px',
+										fontSize: '20px',
+										display: 'flex',
+										'justify-content': 'center',
+										'align-items': 'center',
+										'text-decoration': 'none'}}> 
+								Submit 
+								</a> :
+								<div style={{
 									backgroundColor: '#b83f45',
 									color: '#fff', 
 									height: '50px', 
@@ -184,22 +222,12 @@ var app = app || {};
 									fontSize: '20px',
 									display: 'flex',
 									'justify-content': 'center',
-									'align-items': 'center',
-									'text-decoration': 'none'}}> 
-							Submit 
-							</a> :
-							<div style={{
-								backgroundColor: '#b83f45',
-								color: '#fff', 
-								height: '50px', 
-								width: '75px',
-								fontSize: '20px',
-								display: 'flex',
-								'justify-content': 'center',
-								'align-items': 'center'}}> Submit</div>
-							}
-						</li> 
+									'align-items': 'center'}}> Submit</div>
+								}
+							</li> 
 					</div>
+					{/* KRISTY'S END CODE BLOCK*/}
+
 					<header className="header">
 						<h1>todos</h1>
 						<input
