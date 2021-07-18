@@ -3,7 +3,7 @@
 /*jshint trailing:false */
 /*jshint newcap:false */
 /*global React, Router*/
-// import {Link, useParams, useHistory} from 'react-router-dom';
+
 var app = app || {};
 (function () {
 	'use strict';
@@ -200,7 +200,7 @@ var app = app || {};
 							<li style={{'list-style-type': 'none'}}>
 								{this.state.searchTodo.length > 0 ?
 								<a
-									href= "#/search"
+									href= {`#/search/${this.state.searchTodo}`}
 									onClick={this.handleSubmit} 
 									style={{
 										backgroundColor: '#b83f45',

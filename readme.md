@@ -20,3 +20,8 @@ Run `npm i`.
 
 # Run App Locally
 To run the app locally, run `python -m SimpleHTTPServer`.
+
+
+
+Issues:
+Refreshing #/search should redirect to home 
