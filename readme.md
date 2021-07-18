@@ -105,11 +105,12 @@ var TodoApp = React.createClass({
 +                                    height: '50px', 
 +                                    width: '75px',
 +                                    fontSize: '20px',
-+                                   display: 'flex',
++                                    display: 'flex',
 +                                    'justify-content': 'center',
 +                                    'align-items': 'center',
-+                                    'text-decoration': 'none'}}> 
-+                            Submit 
++                                    'text-decoration': 'none'}}
++                            > 
++                               Submit 
 +                            </a> :
 +                           <div style={{
 +                                backgroundColor: '#b83f45',
@@ -119,7 +120,10 @@ var TodoApp = React.createClass({
 +                               fontSize: '20px',
 +                               display: 'flex',
 +                               'justify-content': 'center',
-+                               'align-items': 'center'}}> Submit</div>
++                               'align-items': 'center'}}
++                           > 
++                               Submit
++                           </div>
 +                           }
 +                       </li> 
 +				</div>
